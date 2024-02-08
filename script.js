@@ -45,4 +45,3 @@ function operate(num1, op, num2)
         return divide(num1, num2); 
     }
 }
-
