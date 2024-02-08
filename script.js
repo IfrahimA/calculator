@@ -45,3 +45,54 @@ function operate(num1, op, num2)
         return divide(num1, num2); 
     }
 }
+
+const display = document.querySelector(".display"); 
+display.textContent = ""; 
+
+const clear = document.querySelector(".delete1"); 
+clear.addEventListener('click', () => 
+{
+    display.textContent = ""; 
+})
+
+const numbers = document.querySelectorAll(".op");
+for(let i = 0; i < numbers.length; i++)
+{
+    numbers[i].addEventListener('click', () => 
+    {
+        display.textContent += numbers[i].textContent; 
+    })
+}
+
+const equals = document.getElementById("equal"); 
+let formulaText; 
+let result = 0; 
+equals.addEventListener('click', () => 
+{
+    if(display.textContent.includes("+"))
+    {
+        formulaText = display.textContent.split("+"); 
+        result = operate(parseInt(formulaText[0]), "+", parseInt(formulaText[1])); 
+        display.textContent = result; 
+
+    }
+    else if(display.textContent.includes("-"))
+    {
+        formulaText = display.textContent.split("-"); 
+        result = operate(parseInt(formulaText[0]), "-", parseInt(formulaText[1])); 
+        display.textContent = result; 
+
+    }
+    else if(display.textContent.includes("*"))
+    {
+        formulaText = display.textContent.split("*"); 
+        result = operate(parseInt(formulaText[0]), "*", parseInt(formulaText[1])); 
+        display.textContent = result; 
+    }
+    else if(display.textContent.includes("/"))
+    {
+        formulaText = display.textContent.split("/");
+        result = operate(parseInt(formulaText[0]), "/", parseInt(formulaText[1])); 
+        display.textContent = result; 
+    }
+})
