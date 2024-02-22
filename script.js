@@ -22,8 +22,15 @@ function multiply(num1, num2)
 function divide(num1, num2)
 {
     let sum = 0; 
-    sum = num1 / num2 * 1.0; 
-    return sum; 
+    sum = num1 / num2; 
+    if(num2 == 0)
+    {
+        return "DIVIDE BY 0 ERROR";
+    }
+    else
+    {
+        return sum; 
+    }
 }
 
 function operate(num1, op, num2)
@@ -60,39 +67,65 @@ for(let i = 0; i < numbers.length; i++)
 {
     numbers[i].addEventListener('click', () => 
     {
-        display.textContent += numbers[i].textContent; 
+        display.textContent += numbers[i].textContent;
+        if(display.textContent[0] == ".")
+        {
+            display.textContent = "0.";
+        }
     })
 }
 
 const equals = document.getElementById("equal"); 
+let arr = []; 
+let dis = display.textContent;
 let formulaText; 
 let result = 0; 
+
 equals.addEventListener('click', () => 
 {
-    if(display.textContent.includes("+"))
+    dis = display.textContent;
+    dis = dis.split(/([+\-*\/])/g);
+    for(let i = 0; i < dis.length; i++)
     {
-        formulaText = display.textContent.split("+"); 
-        result = operate(parseInt(formulaText[0]), "+", parseInt(formulaText[1])); 
-        display.textContent = result; 
+        if(dis[i] == "*")
+        {
+            dis[i-1] = operate(parseFloat(dis[i-1]), "*", parseFloat(dis[i+1])); 
+            dis.splice(i, 2);
+            i = i-2; 
+        }
+    }
+    for(let i = 0; i < dis.length; i++)
+    {
+        if(dis[i] == "/")
+        {
+            dis[i-1] = operate(parseFloat(dis[i-1]), "/", parseFloat(dis[i+1])); 
+            dis.splice(i, 2);
+            i=i-2; 
+        }
+    }
+    for(let i = 0; i < dis.length; i++)
+    {
+        if(dis[i] == "+")
+        {
+            dis[i-1] = operate(parseFloat(dis[i-1]), "+", parseFloat(dis[i+1])); 
+            dis.splice(i, 2);
+            i=i-2; 
+        }
+    }
+    for(let i = 0; i < dis.length; i++)
+    {
+        if(dis[i] == "-")
+        {
+            dis[i-1] = operate(parseFloat(dis[i-1]), "-", parseFloat(dis[i+1])); 
+            dis.splice(i, 2);
+            i=i-2; 
+        }
+    }
+    display.textContent = dis[0]; 
+})
 
-    }
-    else if(display.textContent.includes("-"))
-    {
-        formulaText = display.textContent.split("-"); 
-        result = operate(parseInt(formulaText[0]), "-", parseInt(formulaText[1])); 
-        display.textContent = result; 
-
-    }
-    else if(display.textContent.includes("*"))
-    {
-        formulaText = display.textContent.split("*"); 
-        result = operate(parseInt(formulaText[0]), "*", parseInt(formulaText[1])); 
-        display.textContent = result; 
-    }
-    else if(display.textContent.includes("/"))
-    {
-        formulaText = display.textContent.split("/");
-        result = operate(parseInt(formulaText[0]), "/", parseInt(formulaText[1])); 
-        display.textContent = result; 
-    }
+const del = document.querySelector(".delete2"); 
+del.addEventListener('click', () => 
+{
+    display.textContent = display.textContent.substring(0, display.textContent.length - 1)
 })
