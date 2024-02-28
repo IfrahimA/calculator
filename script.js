@@ -61,6 +61,10 @@ clear.addEventListener('click', () =>
 {
     display.textContent = ""; 
     numbers[13].disabled = false;
+    numbers[14].disabled = false; 
+    numbers[11].disabled = false; 
+    numbers[7].disabled = false; 
+    numbers[3].disabled = false; 
     isDecimal = false;
 })
 
@@ -83,19 +87,35 @@ for(let i = 0; i < numbers.length; i++)
         }
         if(display.textContent[display.textContent.length-1] == "+")
         {
-            isDecimal = false; 
+            isDecimal = false;
+            numbers[14].disabled = true;
+            numbers[11].disabled = true;
+            numbers[7].disabled = true;
+            numbers[3].disabled = true;
         }
         else if(display.textContent[display.textContent.length-1] == "-")
         {
             isDecimal = false; 
+            numbers[14].disabled = true;
+            numbers[11].disabled = true;
+            numbers[7].disabled = true;
+            numbers[3].disabled = true;
         }
         else if(display.textContent[display.textContent.length-1] == "*")
         {
             isDecimal = false; 
+            numbers[14].disabled = true;
+            numbers[11].disabled = true;
+            numbers[7].disabled = true;
+            numbers[3].disabled = true;
         }
         else if(display.textContent[display.textContent.length-1] == "/")
         {
             isDecimal = false; 
+            numbers[14].disabled = true;
+            numbers[11].disabled = true;
+            numbers[7].disabled = true;
+            numbers[3].disabled = true;
         }
         if(isDecimal == true)
         {
@@ -160,6 +180,11 @@ equals.addEventListener('click', () =>
         }
     }
     display.textContent = dis[0]; 
+
+    numbers[14].disabled = false; 
+    numbers[11].disabled = false; 
+    numbers[7].disabled = false; 
+    numbers[3].disabled = false; 
 })
 
 const del = document.querySelector(".delete2"); 
@@ -168,6 +193,26 @@ del.addEventListener('click', () =>
     if(display.textContent[display.textContent.length-1] == '.')
     {
         numbers[13].disabled = false;
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1)
+    }
+    else if(display.textContent[display.textContent.length-1] == '/')
+    {
+        numbers[3].disabled = false;
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1)
+    }
+    else if(display.textContent[display.textContent.length-1] == '*')
+    {
+        numbers[7].disabled = false;
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1)
+    }
+    else if(display.textContent[display.textContent.length-1] == '-')
+    {
+        numbers[11].disabled = false;
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1)
+    }
+    else if(display.textContent[display.textContent.length-1] == '+')
+    {
+        numbers[14].disabled = false;
         display.textContent = display.textContent.substring(0, display.textContent.length - 1)
     }
     else
